@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Commander": {
+    "IIT": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

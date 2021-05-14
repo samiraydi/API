@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Commander.Data;
+using IIT.Clubs.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,7 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 
-namespace Commander
+namespace IIT.Clubs
 {
     public class Startup
     {
@@ -29,21 +29,35 @@ namespace Commander
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CommanderContext>(opt => opt.UseSqlServer
-                (Configuration.GetConnectionString("CommanderConnection")));
+            services.AddDbContext<IITContext>(opt => opt.UseSqlServer
+                (Configuration.GetConnectionString("IITConnection")));
+
+            //services.AddDbContext<IITContext>(
+              //  Options => Options.UseNpgsql(
+                //    Configuration["Postgres:Client:ConnectionString"]
+                 //));
+
+            // services.AddDbContext<ReserverContext>(opt => opt.UseSqlServer
+            //     (Configuration.GetConnectionString("IITConnection")));
 
             services.AddControllers().AddNewtonsoftJson(s => {
                 s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
-            // inject dependency "_repository"
-            //services.AddScoped<ICommanderRepo, MockCommanderRepo>();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddScoped<ICommanderRepo, SqlCommanderRepo>();
-            // services.AddSwaggerGen(c =>
-            // {
-            //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Commander", Version = "v1" });
-            // });
+            services.AddCors();
+
+            // inject dependency "_repository"
+            //services.AddScoped<IIITRepo, MockIITRepo>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IReserverRepo, SqlReserverRepo>();
+            services.AddScoped<ISalleeRepo, SqlSalleeRepo>();
+            services.AddScoped<IEvennementeRepo, SqlEvennementeRepo>();
+            services.AddScoped<IPersonneRepo, SqlPersonneRepo>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IIT", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,13 +66,15 @@ namespace Commander
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                // app.UseSwagger();
-                // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Commander v1"));
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IIT v1"));
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x =>x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
             app.UseAuthorization();
 
