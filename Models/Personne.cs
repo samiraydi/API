@@ -11,7 +11,7 @@ namespace IIT.Clubs.Models
     {
         public Personne()
         {
-            Evennement = new HashSet<Evennement>();
+            Evennements = new HashSet<Evennement>();
         }
 
         [Key]
@@ -23,7 +23,7 @@ namespace IIT.Clubs.Models
         public string Nom { get; set; }
 
         [Column("prenom_personne")]
-        public int Prenom { get; set; }
+        public string Prenom { get; set; }
 
         [Column("date_naissance")]
         public DateTime DateNaissance { get; set; }
@@ -36,6 +36,6 @@ namespace IIT.Clubs.Models
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public ICollection<Evennement> Evennement { get; set; } 
+        public ICollection<Evennement> Evennements { get; set; } 
     }
 }

@@ -30,15 +30,14 @@ namespace IIT.Clubs.Data
                 .WithMany(e => e.Reservations)
                 .HasForeignKey(e => e.IdSalle);
 
-            ///////
-            ///
+
 
             modelBuilder.Entity<Evennement>()
-                .HasKey(c => new { c.IdPersonne});
+                .HasKey(c => new { c.IdOrganisateur});
             modelBuilder.Entity<Evennement>()
-                .HasOne(e => e.Personne)
-                .WithMany(e => e.Evennement)
-                .HasForeignKey(e => e.IdPersonne);
+                .HasOne(e => e.Organisateur)
+                .WithMany(e => e.Evennements)
+                .HasForeignKey(e => e.IdOrganisateur);
         }
     }
 }

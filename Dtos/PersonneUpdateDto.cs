@@ -16,7 +16,7 @@ namespace IIT.Clubs.Dtos
         public DateTime DateNaissance { get; set; }
 
         [Required]
-        public int Occupation { get; set; }
+        public string Occupation { get; set; }
 
         [Required]
         public string Organisation { get; set; }

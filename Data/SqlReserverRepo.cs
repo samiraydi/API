@@ -55,8 +55,6 @@ namespace IIT.Clubs.Data
             {
                 reservation.Evennement = _context.Evennements.FirstOrDefault(p => p.Id == reservation.IdEvennement);
                 reservation.Salle = _context.Salles.FirstOrDefault(p => p.Id == reservation.IdSalle);
-
-
             }
             return reservation;
         }

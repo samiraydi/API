@@ -34,15 +34,11 @@ namespace IIT.Clubs.Models
         [Column("date")]
         public DateTime Date { get; set; }
 
-        [Column("personne_id")]
-        public int Organisateur { get; set; }
+        [Column("organisateur_id")]
+        public int IdOrganisateur { get; set; }
 
-        [Column("id_Personne")]
-        [Required]
-        [MaxLength(20)]
-        public int IdPersonne{ get; set; }
 
-        public Personne Personne { get; set; }
+        public Personne Organisateur { get; set; }
 
         //public IEnumerable<Personne> Participants { get; set; }
 

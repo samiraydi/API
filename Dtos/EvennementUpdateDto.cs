@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IIT.Clubs.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace IIT.Clubs.Dtos
@@ -16,7 +17,7 @@ namespace IIT.Clubs.Dtos
         public DateTime Date { get; set; }
 
         [Required]
-        public int Organisateur { get; set; }
+        public Personne Organisateur { get; set; }
 
     }
 }

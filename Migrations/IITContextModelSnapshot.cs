@@ -21,10 +21,9 @@ namespace IIT.Clubs.API.Migrations
 
             modelBuilder.Entity("IIT.Clubs.Models.Evennement", b =>
                 {
-                    b.Property<int>("IdPersonne")
-                        .HasMaxLength(20)
+                    b.Property<int>("IdOrganisateur")
                         .HasColumnType("int")
-                        .HasColumnName("id_Personne");
+                        .HasColumnName("organisateur_id");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2")
@@ -42,17 +41,13 @@ namespace IIT.Clubs.API.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Organisateur")
-                        .HasColumnType("int")
-                        .HasColumnName("personne_id");
-
                     b.Property<string>("Titre")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("titre");
 
-                    b.HasKey("IdPersonne");
+                    b.HasKey("IdOrganisateur");
 
                     b.ToTable("evennement");
                 });
@@ -81,8 +76,8 @@ namespace IIT.Clubs.API.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("organisation");
 
-                    b.Property<int>("Prenom")
-                        .HasColumnType("int")
+                    b.Property<string>("Prenom")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("prenom_personne");
 
                     b.HasKey("Id");
@@ -156,13 +151,13 @@ namespace IIT.Clubs.API.Migrations
 
             modelBuilder.Entity("IIT.Clubs.Models.Evennement", b =>
                 {
-                    b.HasOne("IIT.Clubs.Models.Personne", "Personne")
-                        .WithMany("Evennement")
-                        .HasForeignKey("IdPersonne")
+                    b.HasOne("IIT.Clubs.Models.Personne", "Organisateur")
+                        .WithMany("Evennements")
+                        .HasForeignKey("IdOrganisateur")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Personne");
+                    b.Navigation("Organisateur");
                 });
 
             modelBuilder.Entity("IIT.Clubs.Models.Reservation", b =>
@@ -191,7 +186,7 @@ namespace IIT.Clubs.API.Migrations
 
             modelBuilder.Entity("IIT.Clubs.Models.Personne", b =>
                 {
-                    b.Navigation("Evennement");
+                    b.Navigation("Evennements");
                 });
 
             modelBuilder.Entity("IIT.Clubs.Models.Salle", b =>

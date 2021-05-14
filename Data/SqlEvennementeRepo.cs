@@ -14,14 +14,17 @@ namespace IIT.Clubs.Data
             _context = context;
         }
 
-        public void CreateEvennement(Evennement cmd)
+        public void CreateEvennement(Evennement rsv)
         {
-            if (cmd == null)
+            if (rsv == null)
             {
-                throw new ArgumentNullException(nameof(cmd));
+                throw new ArgumentNullException(nameof(rsv));
             }
-
-            _context.Evennements.Add(cmd);
+            var personne = _context.Personne.FirstOrDefault(p => p.Id == rsv.IdOrganisateur);
+            
+            rsv.Organisateur = personne;
+        
+            _context.Evennements.Add(rsv);
         }
 
         public void DeleteEvennement(Evennement cmd)
@@ -36,12 +39,19 @@ namespace IIT.Clubs.Data
 
         public IEnumerable<Evennement> GetAllEvennements()
         {
-            return _context.Evennements.ToList();
+            var evennements = _context.Evennements.ToList();
+            evennements.ForEach(r => r.Organisateur = _context.Personne.FirstOrDefault(p => p.Id == r.IdOrganisateur));
+            return evennements;
         }
 
         public Evennement GetEvennementById(int id)
         {
-            return _context.Evennements.FirstOrDefault(p => p.Id == id);
+            var evennement = _context.Evennements.FirstOrDefault(p => p.Id == id);
+            if (evennement != null)
+            {
+                evennement.Organisateur = _context.Personne.FirstOrDefault(p => p.Id == evennement.IdOrganisateur);
+            }
+            return evennement;
         }
 
         public bool SaveChanges()

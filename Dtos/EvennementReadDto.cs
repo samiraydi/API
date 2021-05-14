@@ -14,7 +14,7 @@ namespace IIT.Clubs.Dtos
 
         public DateTime Date { get; set; }
 
-        public int Organisateur { get; set; }
+        public Personne Organisateur { get; set; }
 
         //public ICollection<Reservation> Reservations { get; set; } 
     }
