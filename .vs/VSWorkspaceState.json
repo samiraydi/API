@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Migrations"
+    "\\Dtos",
+    "\\Migrations",
+    "\\Models"
   ],
   "SelectedNode": "\\IIT.Clubs.API.sln",
   "PreviewInSolutionExplorer": false

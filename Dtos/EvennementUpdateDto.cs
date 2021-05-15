@@ -6,6 +6,7 @@ namespace IIT.Clubs.Dtos
 {
     public class EvennementUpdateDto
     {
+
         [Required]
         [MaxLength(250)]
         public string Titre { get; set; }
@@ -18,6 +19,10 @@ namespace IIT.Clubs.Dtos
 
         [Required]
         public Personne Organisateur { get; set; }
+
+        [Required]
+        [MaxLength(250)]
+        public int IdOrganisateur { get; set; }
 
     }
 }
