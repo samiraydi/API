@@ -21,7 +21,7 @@ namespace IIT.Clubs.Data
                 throw new ArgumentNullException(nameof(cmd));
             }
 
-            _context.Personne.Add(cmd);
+            _context.Personnes.Add(cmd);
         }
 
         public void DeletePersonne(Personne cmd)
@@ -31,17 +31,17 @@ namespace IIT.Clubs.Data
                 throw new ArgumentNullException(nameof(cmd));
             }
 
-            _context.Personne.Remove(cmd);
+            _context.Personnes.Remove(cmd);
         }
 
         public IEnumerable<Personne> GetAllPersonne()
         {
-            return _context.Personne.ToList();
+            return _context.Personnes.ToList();
         }
 
         public Personne GetPersonneById(int id)
         {
-            return _context.Personne.FirstOrDefault(p => p.Id == id);
+            return _context.Personnes.FirstOrDefault(p => p.Id == id);
         }
 
         public bool SaveChanges()

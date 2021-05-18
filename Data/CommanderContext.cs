@@ -13,7 +13,7 @@ namespace IIT.Clubs.Data
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Salle> Salles { get; set; }
         public DbSet<Evennement> Evennements { get; set; }
-        public DbSet<Personne> Personne { get; set; }
+        public DbSet<Personne> Personnes { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

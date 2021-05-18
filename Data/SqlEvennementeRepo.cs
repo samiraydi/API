@@ -20,7 +20,7 @@ namespace IIT.Clubs.Data
             {
                 throw new ArgumentNullException(nameof(rsv));
             }
-            var personne = _context.Personne.FirstOrDefault(p => p.Id == rsv.IdOrganisateur);
+            var personne = _context.Personnes.FirstOrDefault(p => p.Id == rsv.IdOrganisateur);
             
             rsv.Organisateur = personne;
         
@@ -40,7 +40,7 @@ namespace IIT.Clubs.Data
         public IEnumerable<Evennement> GetAllEvennements()
         {
             var evennements = _context.Evennements.ToList();
-            evennements.ForEach(r => r.Organisateur = _context.Personne.FirstOrDefault(p => p.Id == r.IdOrganisateur));
+            evennements.ForEach(r => r.Organisateur = _context.Personnes.FirstOrDefault(p => p.Id == r.IdOrganisateur));
             return evennements;
         }
 
@@ -49,7 +49,7 @@ namespace IIT.Clubs.Data
             var evennement = _context.Evennements.FirstOrDefault(p => p.Id == id);
             if (evennement != null)
             {
-                evennement.Organisateur = _context.Personne.FirstOrDefault(p => p.Id == evennement.IdOrganisateur);
+                evennement.Organisateur = _context.Personnes.FirstOrDefault(p => p.Id == evennement.IdOrganisateur);
             }
             return evennement;
         }
