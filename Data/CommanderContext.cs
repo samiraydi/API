@@ -18,8 +18,8 @@ namespace IIT.Clubs.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Reservation>()
-                .HasKey(c => new { c.IdSalle, c.IdEvennement });
+            //modelBuilder.Entity<Reservation>()
+              //  .HasKey(c => new { c.IdSalle, c.IdEvennement });
             modelBuilder.Entity<Reservation>()
                 .HasOne(e => e.Evennement)
                 .WithMany(e => e.Reservations)
@@ -32,8 +32,8 @@ namespace IIT.Clubs.Data
 
 
 
-            modelBuilder.Entity<Evennement>()
-                .HasKey(c => new { c.IdOrganisateur});
+            //modelBuilder.Entity<Evennement>()
+              //  .HasKey(c => new { c.IdOrganisateur});
             modelBuilder.Entity<Evennement>()
                 .HasOne(e => e.Organisateur)
                 .WithMany(e => e.Evennements)

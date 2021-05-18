@@ -16,7 +16,7 @@ namespace IIT.Clubs.Dtos
 
         public int IdOrganisateur { get; set; }
 
-        public Personne Personne { get; set; }
+        public Personne Organisateur { get; set; }
 
         //public ICollection<Reservation> Reservations { get; set; } 
     }

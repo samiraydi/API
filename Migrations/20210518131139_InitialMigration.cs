@@ -42,16 +42,16 @@ namespace IIT.Clubs.API.Migrations
                 name: "evennement",
                 columns: table => new
                 {
-                    organisateur_id = table.Column<int>(type: "int", nullable: false),
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     titre = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    organisateur_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_evennement", x => x.organisateur_id);
+                    table.PrimaryKey("PK_evennement", x => x.id);
                     table.ForeignKey(
                         name: "FK_evennement_Personne_organisateur_id",
                         column: x => x.organisateur_id,
@@ -64,22 +64,22 @@ namespace IIT.Clubs.API.Migrations
                 name: "reservation",
                 columns: table => new
                 {
-                    id_evennement = table.Column<int>(type: "int", maxLength: 20, nullable: false),
-                    id_salle = table.Column<int>(type: "int", maxLength: 20, nullable: false),
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    id_evennement = table.Column<int>(type: "int", maxLength: 20, nullable: false),
+                    id_salle = table.Column<int>(type: "int", maxLength: 20, nullable: false),
                     date_debut = table.Column<DateTime>(type: "datetime2", nullable: false),
                     date_fin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     statut = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_reservation", x => new { x.id_salle, x.id_evennement });
+                    table.PrimaryKey("PK_reservation", x => x.id);
                     table.ForeignKey(
                         name: "FK_reservation_evennement_id_evennement",
                         column: x => x.id_evennement,
                         principalTable: "evennement",
-                        principalColumn: "organisateur_id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_reservation_salle_id_salle",
@@ -90,9 +90,19 @@ namespace IIT.Clubs.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_evennement_organisateur_id",
+                table: "evennement",
+                column: "organisateur_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_reservation_id_evennement",
                 table: "reservation",
                 column: "id_evennement");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_reservation_id_salle",
+                table: "reservation",
+                column: "id_salle");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

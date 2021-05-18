@@ -19,6 +19,6 @@ namespace IIT.Clubs.Dtos
         public string Occupation { get; set; }
 
         [Required]
-        public string Organisateur { get; set; }
+        public string Organisation { get; set; }
     }
 }

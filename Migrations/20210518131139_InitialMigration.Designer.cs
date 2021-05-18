@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IIT.Clubs.API.Migrations
 {
     [DbContext(typeof(IITContext))]
-    [Migration("20210514154106_InitialMigration")]
+    [Migration("20210518131139_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,9 +23,11 @@ namespace IIT.Clubs.API.Migrations
 
             modelBuilder.Entity("IIT.Clubs.Models.Evennement", b =>
                 {
-                    b.Property<int>("IdOrganisateur")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("organisateur_id");
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2")
@@ -37,11 +39,9 @@ namespace IIT.Clubs.API.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("description");
 
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("IdOrganisateur")
                         .HasColumnType("int")
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("organisateur_id");
 
                     b.Property<string>("Titre")
                         .IsRequired()
@@ -49,7 +49,9 @@ namespace IIT.Clubs.API.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("titre");
 
-                    b.HasKey("IdOrganisateur");
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdOrganisateur");
 
                     b.ToTable("evennement");
                 });
@@ -89,15 +91,11 @@ namespace IIT.Clubs.API.Migrations
 
             modelBuilder.Entity("IIT.Clubs.Models.Reservation", b =>
                 {
-                    b.Property<int>("IdSalle")
-                        .HasMaxLength(20)
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id_salle");
-
-                    b.Property<int>("IdEvennement")
-                        .HasMaxLength(20)
-                        .HasColumnType("int")
-                        .HasColumnName("id_evennement");
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateDebut")
                         .HasColumnType("datetime2")
@@ -107,11 +105,15 @@ namespace IIT.Clubs.API.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("date_fin");
 
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("IdEvennement")
+                        .HasMaxLength(20)
                         .HasColumnType("int")
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("id_evennement");
+
+                    b.Property<int>("IdSalle")
+                        .HasMaxLength(20)
+                        .HasColumnType("int")
+                        .HasColumnName("id_salle");
 
                     b.Property<string>("Statut")
                         .IsRequired()
@@ -119,9 +121,11 @@ namespace IIT.Clubs.API.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasColumnName("statut");
 
-                    b.HasKey("IdSalle", "IdEvennement");
+                    b.HasKey("Id");
 
                     b.HasIndex("IdEvennement");
+
+                    b.HasIndex("IdSalle");
 
                     b.ToTable("reservation");
                 });
