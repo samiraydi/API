@@ -29,13 +29,9 @@ namespace IIT.Clubs
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<IITContext>(opt => opt.UseSqlServer
-            //    (Configuration.GetConnectionString("IITConnection")));
+            services.AddDbContext<IITContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("IITConnection")));
 
-            services.AddDbContext<IITContext>(
-                Options => Options.UseNpgsql(
-                    Configuration["Postgres:Client:ConnectionString"]
-                 ));
+           // services.AddDbContext<IITContext>(Options => Options.UseNpgsql(Configuration["Postgres:Client:ConnectionString"]));
 
             //services.AddDbContext<ReserverContext>(opt => opt.UseSqlServer
             //    (Configuration.GetConnectionString("IITConnection")));
