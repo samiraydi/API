@@ -19,6 +19,7 @@ namespace IIT.Clubs.Dtos
         public DateTime DateDebut { get; set; }
 
         public DateTime DateFin { get; set; }
+
         public string Statut { get; set; }
     }
 }

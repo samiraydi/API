@@ -24,7 +24,12 @@ namespace IIT.Clubs.Data
             var salle = _context.Salles.FirstOrDefault(p => p.Id == rsv.IdSalle);
             rsv.Evennement = evennement;
             rsv.Salle = salle;
-            rsv.Statut = "Nouveau";
+            if(rsv.Evennement.IdOrganisateur != null)
+            {
+                var organisateur = _context.Personnes.FirstOrDefault(p => p.Id == rsv.Evennement.IdOrganisateur);
+                rsv.Evennement.Organisateur = organisateur;
+            }
+            rsv.Statut = "En cours";
             _context.Reservations.Add(rsv);
         }
 
@@ -44,6 +49,7 @@ namespace IIT.Clubs.Data
             var reservations = _context.Reservations.ToList();
             reservations.ForEach(r => r.Evennement = _context.Evennements.FirstOrDefault(p => p.Id == r.IdEvennement));
             reservations.ForEach(r => r.Salle = _context.Salles.FirstOrDefault(p => p.Id == r.IdSalle));
+            reservations.ForEach(r => r.Evennement.Organisateur = _context.Personnes.FirstOrDefault(p => p.Id == r.Evennement.IdOrganisateur));
             return reservations;
 
         }
@@ -55,6 +61,11 @@ namespace IIT.Clubs.Data
             {
                 reservation.Evennement = _context.Evennements.FirstOrDefault(p => p.Id == reservation.IdEvennement);
                 reservation.Salle = _context.Salles.FirstOrDefault(p => p.Id == reservation.IdSalle);
+                if (reservation.Evennement.IdOrganisateur != null)
+                {
+                    var organisateur = _context.Personnes.FirstOrDefault(p => p.Id == reservation.Evennement.IdOrganisateur);
+                    reservation.Evennement.Organisateur = organisateur;
+                }
             }
             return reservation;
         }
