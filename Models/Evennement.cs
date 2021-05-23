@@ -13,6 +13,7 @@ namespace IIT.Clubs.Models
         public Evennement()
         {
             Reservations = new HashSet<Reservation>();
+           // Participations = new HashSet<Participation>();
         }
 
         [Key]
@@ -44,7 +45,10 @@ namespace IIT.Clubs.Models
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public ICollection<Reservation> Reservations { get; set; } 
-
+        public ICollection<Reservation> Reservations { get; set; }
+        /*
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public ICollection<Participation> Participations { get; set; }*/
     }
 }

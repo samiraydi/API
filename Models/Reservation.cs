@@ -1,12 +1,22 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace IIT.Clubs.Models
 {
     [Table("reservation")]
     public class Reservation
     {
+
+        public Reservation()
+        {
+            Materials = new HashSet<Material>();
+            // Participations = new HashSet<Participation>();
+        }
+
         [Key]
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -21,6 +31,11 @@ namespace IIT.Clubs.Models
         [Required]
         [MaxLength(20)]
         public int IdSalle { get; set; }
+
+        [Column("id_material")]
+        [Required]
+        [MaxLength(20)]
+        public int IdMaterial { get; set; }
 
         [Column("date_debut")]
         [Required]
@@ -39,5 +54,10 @@ namespace IIT.Clubs.Models
 
         public Salle Salle { get; set; }
 
+        public Material Material { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public ICollection<Material> Materials { get; set; }
     }
 }

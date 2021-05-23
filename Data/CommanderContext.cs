@@ -14,7 +14,8 @@ namespace IIT.Clubs.Data
         public DbSet<Salle> Salles { get; set; }
         public DbSet<Evennement> Evennements { get; set; }
         public DbSet<Personne> Personnes { get; set; }
-
+        // public DbSet<Participation> Participations { get; set; }
+        public DbSet<Material> Materials { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,14 +31,32 @@ namespace IIT.Clubs.Data
                 .WithMany(e => e.Reservations)
                 .HasForeignKey(e => e.IdSalle);
 
+            modelBuilder.Entity<Reservation>()
+                .HasOne(e => e.Material)
+                .WithMany(e => e.Reservations)
+                .HasForeignKey(e => e.IdMaterial);
 
 
             //modelBuilder.Entity<Evennement>()
-              //  .HasKey(c => new { c.IdOrganisateur});
+            //  .HasKey(c => new { c.IdOrganisateur});
             modelBuilder.Entity<Evennement>()
                 .HasOne(e => e.Organisateur)
                 .WithMany(e => e.Evennements)
                 .HasForeignKey(e => e.IdOrganisateur);
+
+
+            /* modelBuilder.Entity<Participation>()
+                 .HasOne(e => e.Evennement)
+                 .WithMany(e => e.Participations)
+                 .HasForeignKey(e => e.IdEvennement);
+
+             modelBuilder.Entity<Participation>()
+                 .HasOne(e => e.Personne)
+                 .WithMany(e => e.Participations)
+                 .HasForeignKey(e => e.IdPersonne); */
+
+            
+                
         }
     }
 }

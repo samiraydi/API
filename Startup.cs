@@ -49,6 +49,8 @@ namespace IIT.Clubs
             services.AddScoped<ISalleeRepo, SqlSalleeRepo>();
             services.AddScoped<IEvennementeRepo, SqlEvennementeRepo>();
             services.AddScoped<IPersonneRepo, SqlPersonneRepo>();
+            // services.AddScoped<IParticipationRepo, SqlParticipationRepo>();
+            services.AddScoped<IMaterialRepo, SqlMaterialRepo>();
 
             services.AddSwaggerGen(c =>
             {

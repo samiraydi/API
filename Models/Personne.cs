@@ -4,14 +4,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Runtime.Serialization;
+
 namespace IIT.Clubs.Models
 {
     [Table("Personne")]
     public class Personne
     {
+
         public Personne()
         {
             Evennements = new HashSet<Evennement>();
+          //  Participations = new HashSet<Participation>();
         }
 
         [Key]
@@ -36,6 +39,11 @@ namespace IIT.Clubs.Models
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public ICollection<Evennement> Evennements { get; set; } 
+        public ICollection<Evennement> Evennements { get; set; }
+
+        /*
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public ICollection<Participation> Participations { get; set; }*/
     }
 }

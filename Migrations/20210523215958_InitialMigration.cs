@@ -68,6 +68,7 @@ namespace IIT.Clubs.API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     id_evennement = table.Column<int>(type: "int", maxLength: 20, nullable: false),
                     id_salle = table.Column<int>(type: "int", maxLength: 20, nullable: false),
+                    id_material = table.Column<int>(type: "int", maxLength: 20, nullable: false),
                     date_debut = table.Column<DateTime>(type: "datetime2", nullable: false),
                     date_fin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     statut = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
@@ -89,10 +90,35 @@ namespace IIT.Clubs.API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "material",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    nom = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    ReservationId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_material", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_material_reservation_ReservationId",
+                        column: x => x.ReservationId,
+                        principalTable: "reservation",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_evennement_organisateur_id",
                 table: "evennement",
                 column: "organisateur_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_material_ReservationId",
+                table: "material",
+                column: "ReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_reservation_id_evennement",
@@ -100,13 +126,37 @@ namespace IIT.Clubs.API.Migrations
                 column: "id_evennement");
 
             migrationBuilder.CreateIndex(
+                name: "IX_reservation_id_material",
+                table: "reservation",
+                column: "id_material");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_reservation_id_salle",
                 table: "reservation",
                 column: "id_salle");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_reservation_material_id_material",
+                table: "reservation",
+                column: "id_material",
+                principalTable: "material",
+                principalColumn: "id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_evennement_Personne_organisateur_id",
+                table: "evennement");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_material_reservation_ReservationId",
+                table: "material");
+
+            migrationBuilder.DropTable(
+                name: "Personne");
+
             migrationBuilder.DropTable(
                 name: "reservation");
 
@@ -114,10 +164,10 @@ namespace IIT.Clubs.API.Migrations
                 name: "evennement");
 
             migrationBuilder.DropTable(
-                name: "salle");
+                name: "material");
 
             migrationBuilder.DropTable(
-                name: "Personne");
+                name: "salle");
         }
     }
 }
