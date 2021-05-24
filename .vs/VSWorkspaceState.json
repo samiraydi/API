@@ -1,10 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Data",
-    "\\Dtos",
-    "\\Models"
+    "\\Models",
+    "\\Profiles"
   ],
-  "SelectedNode": "\\IIT.Clubs.API.sln",
+  "SelectedNode": "\\Controllers",
   "PreviewInSolutionExplorer": false
 }

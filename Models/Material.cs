@@ -10,6 +10,10 @@ namespace IIT.Clubs.Models
     public class Material
 
     {
+        public Material()
+        {
+            Reservations = new HashSet<Reservation>();
+        }
         //
         [Key]
         [Column("id")]

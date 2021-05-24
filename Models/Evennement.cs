@@ -13,7 +13,8 @@ namespace IIT.Clubs.Models
         public Evennement()
         {
             Reservations = new HashSet<Reservation>();
-           // Participations = new HashSet<Participation>();
+
+            Participations = new HashSet<Participation>();
         }
 
         [Key]
@@ -35,20 +36,22 @@ namespace IIT.Clubs.Models
         [Column("date")]
         public DateTime Date { get; set; }
 
-        [Column("organisateur_id")]
+        [Column("id_organisateur")]
         public int IdOrganisateur { get; set; }
 
+        [Column("nombre_participants")]
+        [Required]
+        [MaxLength(20)]
+        public int NbParticipants { get; set; }
 
         public Personne Organisateur { get; set; }
+
 
         //public IEnumerable<Personne> Participants { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]
         public ICollection<Reservation> Reservations { get; set; }
-        /*
-        [JsonIgnore]
-        [IgnoreDataMember]
-        public ICollection<Participation> Participations { get; set; }*/
+        public ICollection<Participation> Participations { get; set; }
     }
 }

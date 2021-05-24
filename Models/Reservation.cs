@@ -10,13 +10,6 @@ namespace IIT.Clubs.Models
     [Table("reservation")]
     public class Reservation
     {
-
-        public Reservation()
-        {
-            Materials = new HashSet<Material>();
-            // Participations = new HashSet<Participation>();
-        }
-
         [Key]
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -56,8 +49,5 @@ namespace IIT.Clubs.Models
 
         public Material Material { get; set; }
 
-        [JsonIgnore]
-        [IgnoreDataMember]
-        public ICollection<Material> Materials { get; set; }
     }
 }

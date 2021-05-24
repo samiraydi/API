@@ -14,7 +14,8 @@ namespace IIT.Clubs.Models
         public Personne()
         {
             Evennements = new HashSet<Evennement>();
-          //  Participations = new HashSet<Participation>();
+            //  Participations = new HashSet<Participation>();
+            Inscriptions = new HashSet<Inscription>();
         }
 
         [Key]
@@ -37,13 +38,14 @@ namespace IIT.Clubs.Models
         [Column("organisation")]
         public string Organisation { get; set; }
 
+
         [JsonIgnore]
         [IgnoreDataMember]
         public ICollection<Evennement> Evennements { get; set; }
+        public ICollection<Inscription> Inscriptions { get; set; }
+        public ICollection<Club> Clubs { get; set; }
+        public ICollection<Participation> Participations { get; set; }
 
-        /*
-        [JsonIgnore]
-        [IgnoreDataMember]
-        public ICollection<Participation> Participations { get; set; }*/
+        
     }
 }

@@ -1,4 +1,4 @@
-﻿/*using IIT.Clubs.Models;
+﻿using IIT.Clubs.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IIT.Clubs.API.Models
+namespace IIT.Clubs.Models
 {
     [Table("Participation")]
     public class Participation
@@ -16,24 +16,16 @@ namespace IIT.Clubs.API.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Column("nombre_participant")]
-        [Required]
+        [Column("id_participant")]
         [MaxLength(20)]
-        public int NbParticipant { get; set; }
-
-        [Column("id_personne")]
-        [Required]
-        [MaxLength(20)]
-        public int IdPersonne { get; set; }
+        public int IdParticipant { get; set; }
 
         [Column("id_evennement")]
-        [Required]
         [MaxLength(20)]
         public int IdEvennement { get; set; }
 
         public Evennement Evennement { get; set; }
 
-        public Personne Personne { get; set; }
+        public Personne Participant { get; set; }
     }
 }
-*/

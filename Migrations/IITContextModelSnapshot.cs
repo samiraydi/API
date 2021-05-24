@@ -19,6 +19,52 @@ namespace IIT.Clubs.API.Migrations
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("IIT.Clubs.Models.Club", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("date_creation");
+
+                    b.Property<string>("DemaineActivite")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("demaine_activite");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("description");
+
+                    b.Property<int>("IdFondateur")
+                        .HasColumnType("int")
+                        .HasColumnName("id_fondateur");
+
+                    b.Property<string>("Logo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("logo_club");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("nom");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdFondateur");
+
+                    b.ToTable("club");
+                });
+
             modelBuilder.Entity("IIT.Clubs.Models.Evennement", b =>
                 {
                     b.Property<int>("Id")
@@ -26,6 +72,9 @@ namespace IIT.Clubs.API.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ClubId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2")
@@ -39,7 +88,12 @@ namespace IIT.Clubs.API.Migrations
 
                     b.Property<int>("IdOrganisateur")
                         .HasColumnType("int")
-                        .HasColumnName("organisateur_id");
+                        .HasColumnName("id_organisateur");
+
+                    b.Property<int>("NbParticipants")
+                        .HasMaxLength(20)
+                        .HasColumnType("int")
+                        .HasColumnName("nombre_participants");
 
                     b.Property<string>("Titre")
                         .IsRequired()
@@ -49,9 +103,52 @@ namespace IIT.Clubs.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClubId");
+
                     b.HasIndex("IdOrganisateur");
 
                     b.ToTable("evennement");
+                });
+
+            modelBuilder.Entity("IIT.Clubs.Models.Inscription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ClubId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdClub")
+                        .HasMaxLength(20)
+                        .HasColumnType("int")
+                        .HasColumnName("id_club");
+
+                    b.Property<int>("IdMembre")
+                        .HasMaxLength(20)
+                        .HasColumnType("int")
+                        .HasColumnName("id_membre");
+
+                    b.Property<int?>("MembreId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NomMembre")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("login");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("password");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClubId");
+
+                    b.HasIndex("MembreId");
+
+                    b.ToTable("Inscription");
                 });
 
             modelBuilder.Entity("IIT.Clubs.Models.Material", b =>
@@ -68,14 +165,36 @@ namespace IIT.Clubs.API.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasColumnName("nom");
 
-                    b.Property<int?>("ReservationId")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
+
+                    b.ToTable("material");
+                });
+
+            modelBuilder.Entity("IIT.Clubs.Models.Participation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("IdEvennement")
+                        .HasMaxLength(20)
+                        .HasColumnType("int")
+                        .HasColumnName("id_evennement");
+
+                    b.Property<int>("IdParticipant")
+                        .HasMaxLength(20)
+                        .HasColumnType("int")
+                        .HasColumnName("id_participant");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReservationId");
+                    b.HasIndex("IdEvennement");
 
-                    b.ToTable("material");
+                    b.HasIndex("IdParticipant");
+
+                    b.ToTable("Participation");
                 });
 
             modelBuilder.Entity("IIT.Clubs.Models.Personne", b =>
@@ -184,8 +303,23 @@ namespace IIT.Clubs.API.Migrations
                     b.ToTable("salle");
                 });
 
+            modelBuilder.Entity("IIT.Clubs.Models.Club", b =>
+                {
+                    b.HasOne("IIT.Clubs.Models.Personne", "Fondateur")
+                        .WithMany("Clubs")
+                        .HasForeignKey("IdFondateur")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Fondateur");
+                });
+
             modelBuilder.Entity("IIT.Clubs.Models.Evennement", b =>
                 {
+                    b.HasOne("IIT.Clubs.Models.Club", null)
+                        .WithMany("Evennements")
+                        .HasForeignKey("ClubId");
+
                     b.HasOne("IIT.Clubs.Models.Personne", "Organisateur")
                         .WithMany("Evennements")
                         .HasForeignKey("IdOrganisateur")
@@ -195,11 +329,38 @@ namespace IIT.Clubs.API.Migrations
                     b.Navigation("Organisateur");
                 });
 
-            modelBuilder.Entity("IIT.Clubs.Models.Material", b =>
+            modelBuilder.Entity("IIT.Clubs.Models.Inscription", b =>
                 {
-                    b.HasOne("IIT.Clubs.Models.Reservation", null)
-                        .WithMany("Materials")
-                        .HasForeignKey("ReservationId");
+                    b.HasOne("IIT.Clubs.Models.Club", "Club")
+                        .WithMany("Inscriptions")
+                        .HasForeignKey("ClubId");
+
+                    b.HasOne("IIT.Clubs.Models.Personne", "Membre")
+                        .WithMany("Inscriptions")
+                        .HasForeignKey("MembreId");
+
+                    b.Navigation("Club");
+
+                    b.Navigation("Membre");
+                });
+
+            modelBuilder.Entity("IIT.Clubs.Models.Participation", b =>
+                {
+                    b.HasOne("IIT.Clubs.Models.Evennement", "Evennement")
+                        .WithMany("Participations")
+                        .HasForeignKey("IdEvennement")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IIT.Clubs.Models.Personne", "Participant")
+                        .WithMany("Participations")
+                        .HasForeignKey("IdParticipant")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Evennement");
+
+                    b.Navigation("Participant");
                 });
 
             modelBuilder.Entity("IIT.Clubs.Models.Reservation", b =>
@@ -229,8 +390,17 @@ namespace IIT.Clubs.API.Migrations
                     b.Navigation("Salle");
                 });
 
+            modelBuilder.Entity("IIT.Clubs.Models.Club", b =>
+                {
+                    b.Navigation("Evennements");
+
+                    b.Navigation("Inscriptions");
+                });
+
             modelBuilder.Entity("IIT.Clubs.Models.Evennement", b =>
                 {
+                    b.Navigation("Participations");
+
                     b.Navigation("Reservations");
                 });
 
@@ -241,12 +411,13 @@ namespace IIT.Clubs.API.Migrations
 
             modelBuilder.Entity("IIT.Clubs.Models.Personne", b =>
                 {
-                    b.Navigation("Evennements");
-                });
+                    b.Navigation("Clubs");
 
-            modelBuilder.Entity("IIT.Clubs.Models.Reservation", b =>
-                {
-                    b.Navigation("Materials");
+                    b.Navigation("Evennements");
+
+                    b.Navigation("Inscriptions");
+
+                    b.Navigation("Participations");
                 });
 
             modelBuilder.Entity("IIT.Clubs.Models.Salle", b =>
