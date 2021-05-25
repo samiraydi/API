@@ -1,12 +1,8 @@
-﻿/*using AutoMapper;
-using IIT.Clubs.API.Models;
+﻿using AutoMapper;
 using IIT.Clubs.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using IIT.Clubs.Models;
 
-namespace IIT.Clubs.API.Profiles
+namespace IIT.Clubs.Profiles
 {
     public class ParticipationsProfile : Profile
     {
@@ -20,4 +16,3 @@ namespace IIT.Clubs.API.Profiles
         }
     }
 }
-*/

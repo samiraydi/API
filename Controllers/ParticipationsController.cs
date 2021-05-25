@@ -1,7 +1,5 @@
-/*using System.Collections.Generic;
+using System.Collections.Generic;
 using AutoMapper;
-using IIT.Clubs.API.Data;
-using IIT.Clubs.API.Models;
 using IIT.Clubs.Data;
 using IIT.Clubs.Dtos;
 using IIT.Clubs.Models;
@@ -14,11 +12,11 @@ namespace IIT.Clubs.Controllers
     [ApiController]
     public class ParticipationsController : ControllerBase
     {
-        private readonly IParticipationRepo _repository;
+        private readonly IParticipationeRepo _repository;
         private readonly IMapper _mapper;
 
         // inject dependency "_repository"
-        public ParticipationsController(IParticipationRepo repository, IMapper mapper)
+        public ParticipationsController(IParticipationeRepo repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -119,4 +117,4 @@ namespace IIT.Clubs.Controllers
             return NoContent();
         }
     }
-}*/
+}

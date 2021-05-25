@@ -3,24 +3,24 @@ using IIT.Clubs.Models;
 
 namespace IIT.Clubs.Data
 {
-    public class MockParticipationContext : IParticipationeRepo
+    public class MockClubContext : IClubeRepo
     {
-        public void CreateParticipation(Participation cmd)
+        public void CreateClub(Club cmd)
         {
             throw new System.NotImplementedException();
         }
 
-        public void DeleteParticipation(Participation cmd)
+        public void DeleteClub(Club cmd)
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Participation> GetAllParticipations()
+        public IEnumerable<Club> GetAllClubs()
         {
             throw new System.NotImplementedException();
         }
 
-        public Participation GetParticipationById(int id)
+        public Club GetClubById(int id)
         {
             throw new System.NotImplementedException();
         }
@@ -30,7 +30,7 @@ namespace IIT.Clubs.Data
             throw new System.NotImplementedException();
         }
 
-        public void UpdateParticipation(Participation cmd)
+        public void UpdateClub(Club cmd)
         {
             throw new System.NotImplementedException();
         }

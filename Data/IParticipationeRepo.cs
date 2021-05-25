@@ -1,14 +1,12 @@
-﻿/* using IIT.Clubs.API.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using IIT.Clubs.Models;
 
-namespace IIT.Clubs.API.Data
+namespace IIT.Clubs.Data
 {
-    public interface IParticipationRepo
+    public interface IParticipationeRepo
     {
         bool SaveChanges();
+
 
         IEnumerable<Participation> GetAllParticipations();
         Participation GetParticipationById(int id);
@@ -17,4 +15,3 @@ namespace IIT.Clubs.API.Data
         void DeleteParticipation(Participation cmd);
     }
 }
-*/

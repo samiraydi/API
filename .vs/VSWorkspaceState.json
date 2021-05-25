@@ -1,9 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Models",
-    "\\Profiles"
+    "\\Models"
   ],
-  "SelectedNode": "\\Controllers",
+  "SelectedNode": "\\Models\\Evennement.cs",
   "PreviewInSolutionExplorer": false
 }

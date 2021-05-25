@@ -27,7 +27,7 @@ namespace IIT.Clubs.Models
         public int IdMembre { get; set; }
 
         [Column("id_club")]
-                [MaxLength(20)]
+        [MaxLength(20)]
         public int IdClub { get; set; }
 
         public Personne Membre { get; set; }

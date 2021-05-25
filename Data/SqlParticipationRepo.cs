@@ -1,13 +1,11 @@
-/* using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using IIT.Clubs.API.Data;
-using IIT.Clubs.API.Models;
 using IIT.Clubs.Models;
 
 namespace IIT.Clubs.Data
 {
-    public class SqlParticipationRepo : IParticipationRepo
+    public class SqlParticipationRepo : IParticipationeRepo
     {
         private readonly IITContext _context;
 
@@ -41,7 +39,7 @@ namespace IIT.Clubs.Data
          
             var participations = _context.Participations.ToList();
             participations.ForEach(r => r.Evennement = _context.Evennements.FirstOrDefault(p => p.Id == r.IdEvennement));
-            participations.ForEach(r => r.Personne = _context.Personnes.FirstOrDefault(p => p.Id == r.IdPersonne));
+            participations.ForEach(r => r.Participant = _context.Personnes.FirstOrDefault(p => p.Id == r.IdParticipant));
             return participations;
 
         }
@@ -52,11 +50,11 @@ namespace IIT.Clubs.Data
             if (participation != null)
             {
                 participation.Evennement = _context.Evennements.FirstOrDefault(p => p.Id == participation.IdEvennement);
-                participation.Personne = _context.Personnes.FirstOrDefault(p => p.Id == participation.IdPersonne);
-                if (participation.Evennement.IdOrganisateur != 0)
+                participation.Participant = _context.Personnes.FirstOrDefault(p => p.Id == participation.IdParticipant);
+                if (participation.Evennement.Participations != null)
                 {
-                    var organisateur = _context.Personnes.FirstOrDefault(p => p.Id == participation.Evennement.IdOrganisateur);
-                    participation.Evennement.Organisateur = organisateur;
+                    var participations = _context.Personnes.FirstOrDefault(p => p.Id == participation.Evennement.NbParticipants);
+                    participation.Evennement.Participations = participations.Participations;
                 }
             }
             return participation;
@@ -72,4 +70,4 @@ namespace IIT.Clubs.Data
             //Nothing
         }
     }
-}*/
+}

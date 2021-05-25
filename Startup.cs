@@ -45,12 +45,17 @@ namespace IIT.Clubs
             // inject dependency "_repository"
             //services.AddScoped<IIITRepo, MockIITRepo>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddScoped<IReserverRepo, SqlReserverRepo>();
             services.AddScoped<ISalleeRepo, SqlSalleeRepo>();
             services.AddScoped<IEvennementeRepo, SqlEvennementeRepo>();
+
             services.AddScoped<IPersonneRepo, SqlPersonneRepo>();
-            // services.AddScoped<IParticipationRepo, SqlParticipationRepo>();
+            services.AddScoped<IParticipationeRepo, SqlParticipationRepo>();
             services.AddScoped<IMaterialRepo, SqlMaterialRepo>();
+
+            services.AddScoped<IClubeRepo, SqlClubeRepo>();
+            services.AddScoped<IInscriptioneRepo, SqlInscriptioneRepo>();
 
             services.AddSwaggerGen(c =>
             {
