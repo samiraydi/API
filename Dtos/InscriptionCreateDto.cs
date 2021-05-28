@@ -4,12 +4,12 @@ namespace IIT.Clubs.Dtos
 {
     public class InscriptionCreateDto
     {
-        [Required]
-        [MaxLength(250)]
         public string NomMembre { get; set; }
 
-        [Required]
         public string Password { get; set; }
+   
+        public int IdMembre { get; set; }
 
+        public int IdClub { get; set; }
     }
 }

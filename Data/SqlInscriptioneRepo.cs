@@ -36,12 +36,20 @@ namespace IIT.Clubs.Data
 
         public IEnumerable<Inscription> GetAllInscriptions()
         {
-            return _context.Inscriptions.ToList();
+            List<Inscription> inscrips = new List<Inscription>();
+            inscrips = _context.Inscriptions.ToList();
+            inscrips.ForEach(i => i.Club = _context.Clubs.FirstOrDefault(c => c.Id == i.IdClub));
+            inscrips.ForEach(i => i.Membre = _context.Personnes.FirstOrDefault(m => m.Id == i.IdMembre));
+            return inscrips;
         }
 
         public Inscription GetInscriptionById(int id)
         {
-            return _context.Inscriptions.FirstOrDefault(p => p.Id == id);
+            Inscription inscrip = new Inscription(); 
+            inscrip = _context.Inscriptions.FirstOrDefault(i => i.Id == id);
+            inscrip.Club = _context.Clubs.FirstOrDefault(c => c.Id == inscrip.IdClub);
+            inscrip.Membre = _context.Personnes.FirstOrDefault(p => p.Id == inscrip.IdMembre);
+            return inscrip;
         }
 
         public bool SaveChanges()

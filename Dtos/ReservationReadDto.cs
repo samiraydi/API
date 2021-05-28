@@ -12,9 +12,13 @@ namespace IIT.Clubs.Dtos
 
         public int IdSalle { get; set; }
 
+        public int IdMaterial { get; set; }
+
         public Evennement Evennement { get; set; }
 
         public Salle Salle { get; set; }
+
+        public Material Material { get; set; }
 
         public DateTime DateDebut { get; set; }
 

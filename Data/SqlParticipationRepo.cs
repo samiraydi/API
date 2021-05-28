@@ -36,8 +36,8 @@ namespace IIT.Clubs.Data
 
         public IEnumerable<Participation> GetAllParticipations()
         {
-         
-            var participations = _context.Participations.ToList();
+            List<Participation> participations = new();
+            participations = _context.Participations.ToList();
             participations.ForEach(r => r.Evennement = _context.Evennements.FirstOrDefault(p => p.Id == r.IdEvennement));
             participations.ForEach(r => r.Participant = _context.Personnes.FirstOrDefault(p => p.Id == r.IdParticipant));
             return participations;
@@ -46,17 +46,12 @@ namespace IIT.Clubs.Data
 
         public Participation GetParticipationById(int id)
         {
-            var participation = _context.Participations.FirstOrDefault(p => p.Id == id);
-            if (participation != null)
-            {
-                participation.Evennement = _context.Evennements.FirstOrDefault(p => p.Id == participation.IdEvennement);
-                participation.Participant = _context.Personnes.FirstOrDefault(p => p.Id == participation.IdParticipant);
-                if (participation.Evennement.Participations != null)
-                {
-                    var participations = _context.Personnes.FirstOrDefault(p => p.Id == participation.Evennement.NbParticipants);
-                    participation.Evennement.Participations = participations.Participations;
-                }
-            }
+            Participation participation = new Participation(); 
+            participation = _context.Participations.FirstOrDefault(p => p.Id == id);
+            participation.Evennement = _context.Evennements.FirstOrDefault(p => p.Id == participation.IdEvennement);
+            participation.Participant = _context.Personnes.FirstOrDefault(p => p.Id == participation.IdParticipant);
+
+
             return participation;
         }
 

@@ -16,6 +16,6 @@ namespace IIT.Clubs.Dtos
 
         public string Logo { get; set; }
 
-        public Personne Fondateur { get; set; }
+        public int IdFondateur { get; set; }
     }
 }

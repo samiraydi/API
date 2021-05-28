@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using IIT.Clubs.Models;
 
 namespace IIT.Clubs.Dtos
 {
@@ -9,5 +10,13 @@ namespace IIT.Clubs.Dtos
         public string NomMembre { get; set; }
 
         public string Password { get; set; }
+
+        public int IdMembre { get; set; }
+
+        public int IdClub { get; set; }
+
+        public Personne Membre { get; set; }
+
+        public Club Club { get; set; }
     }
 }

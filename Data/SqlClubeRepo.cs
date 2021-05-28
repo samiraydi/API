@@ -36,12 +36,17 @@ namespace IIT.Clubs.Data
 
         public IEnumerable<Club> GetAllClubs()
         {
-            return _context.Clubs.ToList();
+            var clubs =_context.Clubs.ToList();
+            clubs.ForEach(c => c.Fondateur = _context.Personnes.FirstOrDefault(p => p.Id == c.IdFondateur));
+            return clubs;
         }
 
         public Club GetClubById(int id)
         {
-            return _context.Clubs.FirstOrDefault(p => p.Id == id);
+            var club = _context.Clubs.FirstOrDefault(p => p.Id == id);
+            if (club != null)
+                club.Fondateur = _context.Personnes.FirstOrDefault(p => p.Id == club.IdFondateur);
+            return club;
         }
 
         public bool SaveChanges()

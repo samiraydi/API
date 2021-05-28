@@ -46,12 +46,12 @@ namespace IIT.Clubs.Models
 
         public Personne Organisateur { get; set; }
 
-
-        //public IEnumerable<Personne> Participants { get; set; }
-
         [JsonIgnore]
         [IgnoreDataMember]
         public ICollection<Reservation> Reservations { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
         public ICollection<Participation> Participations { get; set; }
     }
 }
