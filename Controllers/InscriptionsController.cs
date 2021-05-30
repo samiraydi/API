@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
+using IIT.Clubs.Services;
 using IIT.Clubs.Data;
 using IIT.Clubs.Dtos;
 using IIT.Clubs.Models;
@@ -14,12 +15,14 @@ namespace IIT.Clubs.Controllers
     {
         private readonly IInscriptioneRepo _repository;
         private readonly IMapper _mapper;
+        private readonly IAuthentification _authentification;
 
         // inject dependency "_repository"
-        public InscriptionsController(IInscriptioneRepo repository, IMapper mapper)
+        public InscriptionsController(IInscriptioneRepo repository, IMapper mapper, IAuthentification authentification)
         {
             _repository = repository;
             _mapper = mapper;
+            _authentification = authentification;
         }
         //  private readonly MockIITRepo _repository = new MockIITRepo();
 
@@ -53,6 +56,18 @@ namespace IIT.Clubs.Controllers
 
             return CreatedAtRoute(nameof(GetInscriptionById), new { id = InscriptionReadDto.Id }, InscriptionReadDto);
             //return Ok(CommandReadDto);
+        }
+
+        [Route("api/inscriptions/Authetifier")]
+        [HttpPost]
+        public ActionResult<InscriptionCreateDto> Authentifier (AuthentificateRequest request)
+        {
+
+            bool auth = false;
+            auth = _authentification.Authentifier(request);
+
+         
+            return Ok(auth);
         }
 
         // PUT api/commands/{id}

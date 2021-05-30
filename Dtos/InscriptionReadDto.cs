@@ -7,9 +7,7 @@ namespace IIT.Clubs.Dtos
     {
         public int Id { get; set; }
 
-        public string NomMembre { get; set; }
-
-        public string Password { get; set; }
+        public string Login { get; set; }
 
         public int IdMembre { get; set; }
 

@@ -45,6 +45,11 @@ namespace IIT.Clubs.Data
                 .WithMany(e => e.Evennements)
                 .HasForeignKey(e => e.IdOrganisateur);
 
+            modelBuilder.Entity<Evennement>()
+            .HasOne(e => e.Club)
+            .WithMany(e => e.Evennements)
+            .HasForeignKey(e => e.IdClub);
+
             modelBuilder.Entity<Club>()
                 .HasOne(e => e.Fondateur)
                 .WithMany(e => e.Clubs)
@@ -60,6 +65,22 @@ namespace IIT.Clubs.Data
                  .WithMany(e => e.Participations)
                  .HasForeignKey(e => e.IdParticipant)
                  .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder.Entity<Inscription>()
+                .HasOne(e => e.Membre)
+                .WithMany(e => e.Inscriptions)
+                .HasForeignKey(e => e.IdMembre)
+                .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder.Entity<Inscription>()
+                .HasOne(e => e.Club)
+                .WithMany(e => e.Inscriptions)
+                .HasForeignKey(e => e.IdClub)
+                .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder.Entity<Inscription>()
+                 .HasIndex(e => e.Login)
+                 .IsUnique();
         }
     }
 }

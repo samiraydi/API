@@ -39,12 +39,17 @@ namespace IIT.Clubs.Models
         [Column("id_organisateur")]
         public int IdOrganisateur { get; set; }
 
+        [Column("id_club")]
+        public int IdClub { get; set; }
+
         [Column("nombre_participants")]
         [Required]
         [MaxLength(20)]
         public int NbParticipants { get; set; }
 
         public Personne Organisateur { get; set; }
+
+        public Club Club { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]

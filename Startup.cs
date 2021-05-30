@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IIt.Clubs.Services;
 using IIT.Clubs.Data;
+using IIT.Clubs.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,18 +31,14 @@ namespace IIT.Clubs
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<IITContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("IITConnection")));
+             services.AddDbContext<IITContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("IITConnection")));
 
            // services.AddDbContext<IITContext>(Options => Options.UseNpgsql(Configuration["Postgres:Client:ConnectionString"]));
 
-            //services.AddDbContext<ReserverContext>(opt => opt.UseSqlServer
-            //    (Configuration.GetConnectionString("IITConnection")));
-
+            
             services.AddControllers().AddNewtonsoftJson(s => {
                 s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
-
-            services.AddCors();
 
             // inject dependency "_repository"
             //services.AddScoped<IIITRepo, MockIITRepo>();
@@ -56,10 +54,16 @@ namespace IIT.Clubs
 
             services.AddScoped<IClubeRepo, SqlClubeRepo>();
             services.AddScoped<IInscriptioneRepo, SqlInscriptioneRepo>();
+            services.AddScoped<IAuthentification, Authentification>();
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IIT", Version = "v1" });
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder => { builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin(); });
             });
         }
 
@@ -78,6 +82,7 @@ namespace IIT.Clubs
             app.UseRouting();
 
             app.UseCors(x =>x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+
 
             app.UseAuthorization();
 

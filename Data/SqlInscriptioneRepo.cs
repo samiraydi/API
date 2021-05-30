@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BC = BCrypt.Net.BCrypt;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using IIT.Clubs.Models;
@@ -14,14 +15,43 @@ namespace IIT.Clubs.Data
             _context = context;
         }
 
-        public void CreateInscription(Inscription cmd)
+        public void CreateInscription(Inscription account)
         {
-            if (cmd == null)
+            if (account == null)
             {
-                throw new ArgumentNullException(nameof(cmd));
+                throw new ArgumentNullException(nameof(account));
             }
 
-            _context.Inscriptions.Add(cmd);
+
+            // hash password
+            account.Password = HashPassword(account.Password);
+
+            // save account
+            _context.Inscriptions.Add(account);
+            _context.SaveChanges();
+        }
+
+        public bool Authentifier(Inscription model)
+        {
+            // get account from database
+            var account = _context.Inscriptions.SingleOrDefault(x => x.Login == model.Login);
+
+            // check account found and verify password
+            if (account == null || !BC.Verify(model.Password, account.PasswordHash))
+            {
+                // authentication failed
+                return false;
+            }
+            else
+            {
+                // authentication successful
+                return true;
+            }
+        }
+
+        private string HashPassword(string password)
+        {
+            return BC.HashPassword(password);
         }
 
         public void DeleteInscription(Inscription cmd)
