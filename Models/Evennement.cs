@@ -39,6 +39,9 @@ namespace IIT.Clubs.Models
         [Column("id_organisateur")]
         public int IdOrganisateur { get; set; }
 
+        [Column("id_club")]
+        public int IdClub { get; set; }
+
         [Column("nombre_participants")]
         [Required]
         [MaxLength(20)]
@@ -46,12 +49,14 @@ namespace IIT.Clubs.Models
 
         public Personne Organisateur { get; set; }
 
-
-        //public IEnumerable<Personne> Participants { get; set; }
+        public Club Club { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]
         public ICollection<Reservation> Reservations { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
         public ICollection<Participation> Participations { get; set; }
     }
 }

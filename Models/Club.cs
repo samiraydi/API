@@ -55,6 +55,9 @@ namespace IIT.Clubs.Models
         [IgnoreDataMember]
         public ICollection<Inscription> Inscriptions { get; set; }
 
+
+        [JsonIgnore]
+        [IgnoreDataMember]
         public ICollection<Evennement> Evennements { get; set; }
 
     }

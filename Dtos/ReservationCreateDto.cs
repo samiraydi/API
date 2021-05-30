@@ -15,5 +15,7 @@ namespace IIT.Clubs.Dtos
 
         public int IdSalle { get; set; }
 
+        public int IdMaterial { get; set; }
+
     }
 }

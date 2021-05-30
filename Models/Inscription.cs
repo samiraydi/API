@@ -17,9 +17,12 @@ namespace IIT.Clubs.Models
         public int Id { get; set; }
 
         [Column("login")]
-        public string NomMembre { get; set; }
+        public string Login { get; set; }
 
         [Column("password")]
+        public string PasswordHash { get; set; }
+
+        [NotMapped]
         public string Password { get; set; }
 
         [Column("id_membre")]

@@ -19,7 +19,5 @@ namespace IIT.Clubs.Dtos
 
 
         public Personne Organisateur { get; set; }
-
-        //public ICollection<Reservation> Reservations { get; set; } 
     }
 }

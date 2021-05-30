@@ -14,7 +14,7 @@ namespace IIT.Clubs.Models
         {
             Reservations = new HashSet<Reservation>();
         }
-        //
+
         [Key]
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
