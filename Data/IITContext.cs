@@ -1,11 +1,13 @@
 using IIT.Clubs.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace IIT.Clubs.Data
 {
-    public class IITContext : DbContext
+    public class IITContext : IdentityDbContext<Personne, IdentityRole<int>, int>
     {
-        public IITContext(DbContextOptions<IITContext> opt): base(opt)
+        public IITContext(DbContextOptions<IITContext> opt) : base(opt)
         {
             
         }
@@ -20,8 +22,9 @@ namespace IIT.Clubs.Data
         public DbSet<Club> Clubs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             //modelBuilder.Entity<Reservation>()
-              //  .HasKey(c => new { c.IdSalle, c.IdEvennement });
+            //  .HasKey(c => new { c.IdSalle, c.IdEvennement });
             modelBuilder.Entity<Reservation>()
                 .HasOne(e => e.Evennement)
                 .WithMany(e => e.Reservations)
@@ -78,9 +81,23 @@ namespace IIT.Clubs.Data
                 .HasForeignKey(e => e.IdClub)
                 .OnDelete(DeleteBehavior.ClientCascade);
 
-            modelBuilder.Entity<Inscription>()
-                 .HasIndex(e => e.Login)
-                 .IsUnique();
+            //modelBuilder.Entity<Inscription>()
+            //     .HasIndex(e => e.Login)
+            //     .IsUnique();
+
+            modelBuilder.Entity<Personne>()
+            
+                // Each User can have many UserClaims
+                .HasMany(e => e.Roles)
+                    .WithOne()
+                    .HasForeignKey(uc => uc.UserId)
+                    .IsRequired();
+   
+
+            //modelBuilder.Entity<IdentityUserLogin>
+            //      .HasOne(e => e.Evennement)
+            //     .WithOne(e => e.Participations)
+            //     .HasForeignKey(e => e.IdEvennement);
         }
     }
 }

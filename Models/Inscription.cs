@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using System.Runtime.Serialization;
+using Microsoft.AspNetCore.Identity;
 
 namespace IIT.Clubs.Models
 {
@@ -10,20 +11,11 @@ namespace IIT.Clubs.Models
     public class Inscription
 
     {
-        //
+
         [Key]
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
-        [Column("login")]
-        public string Login { get; set; }
-
-        [Column("password")]
-        public string PasswordHash { get; set; }
-
-        [NotMapped]
-        public string Password { get; set; }
 
         [Column("id_membre")]
         [MaxLength(20)]
@@ -36,6 +28,8 @@ namespace IIT.Clubs.Models
         public Personne Membre { get; set; }
 
         public Club Club { get; set; }
+
+
 
 
     }

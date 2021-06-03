@@ -15,14 +15,13 @@ namespace IIT.Clubs.Controllers
     {
         private readonly IInscriptioneRepo _repository;
         private readonly IMapper _mapper;
-        private readonly IAuthentification _authentification;
 
         // inject dependency "_repository"
         public InscriptionsController(IInscriptioneRepo repository, IMapper mapper, IAuthentification authentification)
         {
             _repository = repository;
             _mapper = mapper;
-            _authentification = authentification;
+  
         }
         //  private readonly MockIITRepo _repository = new MockIITRepo();
 
@@ -58,17 +57,7 @@ namespace IIT.Clubs.Controllers
             //return Ok(CommandReadDto);
         }
 
-        [Route("api/inscriptions/Authetifier")]
-        [HttpPost]
-        public ActionResult<InscriptionCreateDto> Authentifier (AuthentificateRequest request)
-        {
-
-            bool auth = false;
-            auth = _authentification.Authentifier(request);
-
-         
-            return Ok(auth);
-        }
+        
 
         // PUT api/commands/{id}
         [HttpPut("{id}")]

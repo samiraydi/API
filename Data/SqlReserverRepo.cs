@@ -24,7 +24,7 @@ namespace IIT.Clubs.Data
             var salle = _context.Salles.FirstOrDefault(p => p.Id == rsv.IdSalle);
             rsv.Evennement = evennement;
             rsv.Salle = salle;
-            if(rsv.Evennement.IdOrganisateur != null)
+            if(rsv.Evennement != null)
             {
                 var organisateur = _context.Personnes.FirstOrDefault(p => p.Id == rsv.Evennement.IdOrganisateur);
                 rsv.Evennement.Organisateur = organisateur;
@@ -61,7 +61,7 @@ namespace IIT.Clubs.Data
             {
                 reservation.Evennement = _context.Evennements.FirstOrDefault(p => p.Id == reservation.IdEvennement);
                 reservation.Salle = _context.Salles.FirstOrDefault(p => p.Id == reservation.IdSalle);
-                if (reservation.Evennement.IdOrganisateur != null)
+                if (reservation.Evennement != null)
                 {
                     var organisateur = _context.Personnes.FirstOrDefault(p => p.Id == reservation.Evennement.IdOrganisateur);
                     reservation.Evennement.Organisateur = organisateur;

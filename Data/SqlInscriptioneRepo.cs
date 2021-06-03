@@ -24,7 +24,7 @@ namespace IIT.Clubs.Data
 
 
             // hash password
-            account.Password = HashPassword(account.Password);
+            //account.Password = HashPassword(account.Password);
 
             // save account
             _context.Inscriptions.Add(account);
@@ -33,20 +33,21 @@ namespace IIT.Clubs.Data
 
         public bool Authentifier(Inscription model)
         {
-            // get account from database
-            var account = _context.Inscriptions.SingleOrDefault(x => x.Login == model.Login);
+            throw new NotImplementedException();
+            //// get account from database
+            //var account = _context.Inscriptions.SingleOrDefault(x => x.Email == model.Email);
 
-            // check account found and verify password
-            if (account == null || !BC.Verify(model.Password, account.PasswordHash))
-            {
-                // authentication failed
-                return false;
-            }
-            else
-            {
-                // authentication successful
-                return true;
-            }
+            //// check account found and verify password
+            //if (account == null || !BC.Verify(model.Password, account.PasswordHash))
+            //{
+            //    // authentication failed
+            //    return false;
+            //}
+            //else
+            //{
+            //    // authentication successful
+            //    return true;
+            //}
         }
 
         private string HashPassword(string password)

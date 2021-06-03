@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Runtime.Serialization;
+using Microsoft.AspNetCore.Identity;
 
 namespace IIT.Clubs.Models
 {
     [Table("Personne")]
-    public class Personne
+    public class Personne : IdentityUser<int>
     {
 
         public Personne()
@@ -18,11 +19,15 @@ namespace IIT.Clubs.Models
             Inscriptions = new HashSet<Inscription>();
         }
 
-        [Key]
-        [Column("id")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        //[Key]
+        //[Column("id")]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //public int Id { get; set; }
 
+
+        [NotMapped]
+        public string Password { get; set; }
+     
         [Column("nom_personne")]
         public string Nom { get; set; }
 
@@ -35,9 +40,11 @@ namespace IIT.Clubs.Models
         [Column("occupation")]
         public string Occupation { get; set; }
 
-        [Column("organisation")]
-        public string Organisation { get; set; }
+        [Column("etablissement")]
+        public string Etablissement { get; set; }
 
+
+        public virtual ICollection<IdentityUserRole<int>> Roles { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]
