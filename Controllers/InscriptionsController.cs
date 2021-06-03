@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using IIT.Clubs.Services;
 using IIT.Clubs.Data;
 using IIT.Clubs.Dtos;
 using IIT.Clubs.Models;
@@ -17,7 +16,7 @@ namespace IIT.Clubs.Controllers
         private readonly IMapper _mapper;
 
         // inject dependency "_repository"
-        public InscriptionsController(IInscriptioneRepo repository, IMapper mapper, IAuthentification authentification)
+        public InscriptionsController(IInscriptioneRepo repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

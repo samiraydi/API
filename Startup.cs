@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IIt.Clubs.Services;
 using IIT.Clubs.Configuration;
 using IIT.Clubs.Data;
 using IIT.Clubs.Models;
-using IIT.Clubs.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -86,7 +84,7 @@ namespace IIT.Clubs
 
             services.AddScoped<IClubeRepo, SqlClubeRepo>();
             services.AddScoped<IInscriptioneRepo, SqlInscriptioneRepo>();
-            services.AddScoped<IAuthentification, Authentification>();
+            
 
             services.AddSwaggerGen(c =>
             {
