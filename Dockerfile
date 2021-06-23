@@ -6,15 +6,18 @@ WORKDIR /source
 COPY *.sln ./
 COPY *.csproj ./
 RUN dotnet restore
+RUN dotnet tool install --global dotnet-ef --version 5.0.7
+ENV PATH="${PATH}:/root/.dotnet/tools"
 
 # copy everything else and build app
 COPY . ./
 WORKDIR /source
 RUN dotnet publish -c release -o /app --no-restore
-
+#CMD ["dotnet", "ef", "--project", "../Migrations", "database", "update"]
+#RUN dotnet ef database update
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app
-EXPOSE 80
+EXPOSE 80/tcp
 COPY --from=build /app ./
 ENTRYPOINT ["dotnet", "IIT.Clubs.API.dll"]

@@ -51,7 +51,8 @@ namespace IIT.Clubs.Data
             modelBuilder.Entity<Evennement>()
             .HasOne(e => e.Club)
             .WithMany(e => e.Evennements)
-            .HasForeignKey(e => e.IdClub);
+            .HasForeignKey(e => e.IdClub)
+            .OnDelete(DeleteBehavior.ClientCascade);
 
             modelBuilder.Entity<Club>()
                 .HasOne(e => e.Fondateur)

@@ -35,9 +35,9 @@ namespace IIT.Clubs
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-             //services.AddDbContext<IITContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("IITConnection")));
+             services.AddDbContext<IITContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("IITConnection")));
 
-            services.AddDbContext<IITContext>(Options => Options.UseNpgsql(Configuration["Postgres:Client:ConnectionString"]));
+            //services.AddDbContext<IITContext>(Options => Options.UseNpgsql(Configuration["Postgres:Client:ConnectionString"]));
 
             
             services.AddControllers().AddNewtonsoftJson(s => {
@@ -88,7 +88,13 @@ namespace IIT.Clubs
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IIT", Version = "v1" });
+                //c.SwaggerDoc("v1", new OpenApiInfo { Title = "", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "IIT Services ClubAPI",
+                    Version = "v1",
+                    Description = "API pour servir les étudiant et les agent administratifs à gérer leurs clubs",
+                });
             });
 
             services.AddCors(options =>
@@ -100,12 +106,12 @@ namespace IIT.Clubs
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
+            //if (env.IsDevelopment())
+            //{
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IIT v1"));
-            }
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IIT API Clubs v1"));
+            //}
 
             app.UseHttpsRedirection();
 

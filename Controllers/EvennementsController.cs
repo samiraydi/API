@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IIT.Clubs.Controllers
 {
+ 
     [Route("api/Evennements")]
     [ApiController]
     public class EvennementsController : ControllerBase
@@ -41,7 +42,24 @@ namespace IIT.Clubs.Controllers
             return NotFound();
         }
 
-        //post api/commands
+/// <summary>
+/// Créer un évennement
+/// </summary>
+/// <remarks>
+/// Sample request:
+///
+///     POST /evennement
+///     {
+///        "id": 1,
+///        "name": "Item1",
+///        "isComplete": true
+///     }
+///
+/// </remarks>
+/// <param name="item"></param>
+/// <returns>A newly created TodoItem</returns>
+/// <response code="201">Returns the newly created item</response>
+/// <response code="400">If the item is null</response> 
         [HttpPost]
         public ActionResult<EvennementCreateDto> CreateEvennement(EvennementCreateDto EvennementCreateDto)
         {

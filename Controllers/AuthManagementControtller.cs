@@ -30,6 +30,7 @@ namespace IIT.Clubs.Controllers
         private readonly UserManager<Personne> _userManager;
         private readonly RoleManager<IdentityRole<int>> _roleManager;
         private readonly JwtConfig _jwtConfig;
+       
         
    
 
@@ -69,7 +70,7 @@ namespace IIT.Clubs.Controllers
                 Email= model.Email,
                 UserName= model.Email,
                 };
-                
+               
             
                 var isCreated = await _userManager.CreateAsync(newUser, model.Password);
                 var result = await _userManager.CreateAsync(newUser, model.Password);
@@ -78,6 +79,11 @@ namespace IIT.Clubs.Controllers
 
                 await AddMembreRoleAsync(newUser);
 
+                var user = await _userManager.FindByNameAsync(model.Email);
+                var Inscription = new Inscription() {
+                    IdMembre = user.Id,
+                    IdClub = model.IdClub
+                };
                 return Ok(new RegistrationResponse { Status = "Success", Message = "User Created Successfully" });
           
 
