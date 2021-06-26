@@ -16,8 +16,8 @@ namespace IIT.Clubs.Dtos
 
 
         public int IdOrganisateur { get; set; }
-
-
+        public int IdClub { get; set; }
+        public int NbParticipants { get; set; }
         public Personne Organisateur { get; set; }
     }
 }

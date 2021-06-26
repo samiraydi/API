@@ -44,7 +44,6 @@ namespace IIT.Clubs.Models
 
         [Column("nombre_participants")]
         [Required]
-        [MaxLength(20)]
         public int NbParticipants { get; set; }
 
         public Personne Organisateur { get; set; }

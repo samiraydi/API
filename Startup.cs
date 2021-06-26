@@ -93,7 +93,7 @@ namespace IIT.Clubs
                 {
                     Title = "IIT Services ClubAPI",
                     Version = "v1",
-                    Description = "API pour servir les étudiant et les agent administratifs à gérer leurs clubs",
+                    Description = "API pour servir les étudiants et les agents administratifs à gérer leurs clubs",
                 });
             });
 

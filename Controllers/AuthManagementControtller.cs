@@ -56,9 +56,8 @@ namespace IIT.Clubs.Controllers
                     return BadRequest(new RegistrationResponse()
                     {
                         Result = false,
-                        Errors = new List<string>(){
-                                            "Email already exist"
-                                        }
+                        Status = "error",
+                        Message = "Email already exist"
                     });
                 }
             var newUser = new Personne() {

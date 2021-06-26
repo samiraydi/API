@@ -21,8 +21,10 @@ namespace IIT.Clubs.Data
                 throw new ArgumentNullException(nameof(rsv));
             }
             var personne = _context.Personnes.FirstOrDefault(p => p.Id == rsv.IdOrganisateur);
+            var club = _context.Clubs.FirstOrDefault(p => p.Id == rsv.IdClub);
             
             rsv.Organisateur = personne;
+            rsv.Club = club;
         
             _context.Evennements.Add(rsv);
         }

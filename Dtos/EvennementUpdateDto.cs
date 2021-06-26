@@ -12,8 +12,10 @@ namespace IIT.Clubs.Dtos
         public string Description { get; set; }
 
         public DateTime Date { get; set; }
+        public int NbParticipants { get; set; }
 
         public int IdOrganisateur { get; set; }
+        public int IdClub { get; set; }
 
     }
 }
